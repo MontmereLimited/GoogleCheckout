@@ -65,27 +65,12 @@ class Order {
 	 * @return Order
 	 */
 	public function addItem(Item $item) {
-		if (!$this->_validItem($item)) {
+		if (!$item->isValid()) {
 			throw new Exception("You need to provide all the required options for the Item");
 		}
 		$this->_items[] = $item;
 		return $this;
 	}
-	
-	/**
-	 * @param Item $item
-	 * @return bool
-	 * @throws Exception
-	 */
-	protected function _validItem(Item $item) {
-		foreach ($item->getOptions() as $key => $val) {
-			if ($val == null) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
 	
 	
 	public function getRedirectUrl() {
@@ -125,7 +110,7 @@ class Order {
 		$return = $client->setRawData($xml, 'text/xml')->request('POST')->getBody();
 		
 		$return = new \SimpleXMLElement($return);
-		if (!isset($return->{'checkout-redirect'})) {
+		if (!isset($return->{'redirect-url'})) {
 			throw new Exception("An Error has occurred");
 		}
 		$url = current($return->{'redirect-url'});
