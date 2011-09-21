@@ -15,7 +15,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testCanValidateItem() {
+	public function testCanAddPrice() {
 		$this->_item->setPrice('20');
 		$this->assertEquals($this->_item->getPrice(), '20');
 	}
