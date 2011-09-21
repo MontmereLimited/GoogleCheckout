@@ -1,0 +1,11 @@
+<phpunit bootstrap="./Bootstrap.php" colors="true">
+    <testsuite name="GoogleCheckout Test Suite">
+        <directory>./</directory>
+    </testsuite>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../library/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
