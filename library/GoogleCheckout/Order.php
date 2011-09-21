@@ -71,6 +71,10 @@ class Order {
 		$this->_items[] = $item;
 		return $this;
 	}
+
+	public function getItems() {
+		return $this->_items;
+	}
 	
 	
 	public function getRedirectUrl() {

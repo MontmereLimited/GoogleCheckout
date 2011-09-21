@@ -29,7 +29,7 @@ class Item {
 	 * @return Item
 	 */
 	public function setPrice($price) {
-		if (!is_numeric($price) || !is_string($price)) {
+		if (!is_string($price) || !filter_var($price, FILTER_VALIDATE_FLOAT)) {
 			throw new InvalidArgumentException("Must provide a string for a numeric value for price");
 		}
 		$this->config['unit_price'] = $price;
@@ -127,8 +127,27 @@ class Item {
 		return $this->config;
 	}
 	
-	
-	
+	/**
+	 * @return bool
+	 */
+	public function isValid() {
+		return $this->_validItem($this);
+	}
+
+	/**
+	 * 
+	 * @param Item $item
+	 * @return bool
+	 * @throws Exception
+	 */
+	protected function _validItem(Item $item) {
+		foreach ($item->getOptions() as $key => $val) {
+			if ($val === null) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 }
